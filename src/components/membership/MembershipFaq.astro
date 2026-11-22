@@ -1,0 +1,71 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Plus from "@/components/fundations/icons/Plus.astro";
+
+const questions = [
+  {
+    question: "What do members get that readers do not?",
+    answer:
+      "Long features, studio visits and full case studies, plus the archive back to 2021. Members also see no ads anywhere on the site.",
+  },
+  {
+    question: "Can I cancel at any time?",
+    answer:
+      "Yes. Cancel from your account page and you keep access until the end of the period you paid for.",
+  },
+  {
+    question: "Can I switch between monthly and yearly?",
+    answer:
+      "Yes. The change applies from your next renewal, and we credit anything you have already paid.",
+  },
+  {
+    question: "How do Studio seats work?",
+    answer:
+      "The account owner invites people by email. Each seat is a full membership, and you can move seats between people at any time.",
+  },
+  {
+    question: "Do you offer student prices?",
+    answer:
+      "Students and teachers get half off Member. Write to us from your school address and we will send you a code.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-12 lg:p-16">
+      <div class="lg:col-span-4">
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground text-balance">
+          Questions
+        </Text>
+        <Text variant="textLG" class="mt-4 text-muted-foreground text-pretty">
+          Anything else goes to
+          <a href="#_" class="text-foreground hover:text-accent">members@tratto.test</a>.
+        </Text>
+      </div>
+      <div class="flex flex-col gap-2 lg:col-span-8">
+        {
+          questions.map((item) => (
+            <details class="p-6 bg-muted group rounded-3xl">
+              <summary class="flex items-center justify-between gap-6 list-none cursor-pointer">
+                <Text tag="span" variant="textLG" class="font-display text-foreground">
+                  {item.question}
+                </Text>
+                <span
+                  class="flex items-center justify-center text-white duration-300 size-11 shrink-0 bg-foreground rounded-xl group-open:rotate-45"
+                  aria-hidden="true"
+                >
+                  <Plus size="base" />
+                </span>
+              </summary>
+              <Text variant="textBase" class="mt-4 text-muted-foreground lg:w-5/6 text-pretty">
+                {item.answer}
+              </Text>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </Wrapper>
+</section>

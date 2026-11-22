@@ -1,0 +1,160 @@
+---
+import BigLogo from "@/components/assets/BigLogo.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Plus from "@/components/fundations/icons/Plus.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import { formatDate, getArticles } from "@/lib/articles";
+
+const isHome = Astro.url.pathname === "/";
+const latestDate = (await getArticles())[0].data.pubDate;
+const barLinks = [
+  { href: "/articles", label: "Articles" },
+  { href: "/topics", label: "Topics" },
+  { href: "/membership", label: "Membership" },
+];
+const panelLinks = [
+  ...barLinks,
+  { href: "/newsletter", label: "Newsletter" },
+  { href: "/authors", label: "Editors" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
+const socials = [
+  { href: "#_", label: "X" },
+  { href: "#_", label: "LinkedIn" },
+  { href: "#_", label: "Email" },
+];
+---
+
+<header class="overflow-hidden">
+  <div class="fixed inset-x-0 z-50 pointer-events-none top-2">
+    <Wrapper variant="standard">
+      <div
+        id="menu"
+        style="view-transition-name: menu"
+        class="relative mx-auto overflow-hidden text-white pointer-events-auto md:max-w-xl bg-foreground/60 backdrop-blur-2xl rounded-2xl group/menu"
+      >
+        <div class="flex items-center justify-between gap-4 p-2">
+          <a href="/" class="px-4 font-display text-lg font-medium">Tratto</a>
+          <nav class="hidden gap-6 md:flex" aria-label="Sections">
+            {
+              barLinks.map((link) => (
+                <a
+                  href={link.href}
+                  class="text-sm font-display duration-300 hover:text-orange"
+                >
+                  {link.label}
+                </a>
+              ))
+            }
+          </nav>
+          <div class="flex items-center gap-1">
+            <Button
+              id="dropdown-toggle"
+              size="sm"
+              variant="orange"
+              iconOnly
+              class="shrink-0"
+              aria-label="Open menu"
+              aria-expanded="false"
+              aria-controls="dropdown-panel"
+            >
+              <Plus
+                slot="icon"
+                size="sm"
+                class="transition-transform duration-500 ease-out group-aria-expanded/button:rotate-45"
+              />
+            </Button>
+          </div>
+        </div>
+        <div
+          id="dropdown-panel"
+          class="invisible transition-all duration-700 ease-out opacity-0 max-h-0 group-data-open/menu:visible group-data-open/menu:max-h-screen group-data-open/menu:opacity-100"
+        >
+          <div class="flex flex-col gap-16 px-6 pt-12 pb-6">
+            <nav aria-label="Main">
+              <ul class="flex flex-col gap-1">
+                {
+                  panelLinks.map((link) => (
+                    <li>
+                      <Text
+                        tag="a"
+                        href={link.href}
+                        variant="displayLG"
+                        class="font-display duration-300 hover:text-orange"
+                      >
+                        {link.label}
+                      </Text>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+            <div class="flex flex-col gap-6">
+              <div class="flex flex-col gap-1 sm:flex-row">
+                <Button isLink href="/sign-in" size="sm" variant="accent">Sign in</Button>
+                <Button isLink href="/system/overview" size="sm" variant="muted">
+                  Overview
+                </Button>
+                <Button
+                  isLink
+                  href="https://lexingtonthemes.com/templates/snowpeak"
+                  size="sm"
+                  variant="pink"
+                >
+                  Buy Snowpeak
+                </Button>
+              </div>
+              <div class="flex flex-col gap-4 text-sm font-display text-muted sm:flex-row sm:justify-between">
+                <div class="flex flex-wrap gap-6">
+                  {
+                    socials.map((social) => (
+                      <a href={social.href} class="duration-300 hover:text-white">
+                        {social.label}
+                      </a>
+                    ))
+                  }
+                </div>
+                <span>
+                  Latest issue <time datetime={latestDate.toISOString()}>{formatDate(latestDate)}</time>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  </div>
+  {
+    isHome && (
+      <Wrapper variant="standard">
+        <div class="px-8 pt-16 pb-8 mt-2 rounded-4xl lg:rounded-6xl bg-foreground lg:p-32">
+          <BigLogo class="w-full text-white" />
+          <div class="flex flex-col justify-between gap-4 mt-12 font-display text-muted sm:flex-row">
+            <Text variant="textLG" class="text-balance">
+              A weekly publication on type, interfaces and identity.
+            </Text>
+            <Text tag="span" variant="textLG">
+              <time datetime={latestDate.toISOString()}>{formatDate(latestDate)}</time>
+            </Text>
+          </div>
+        </div>
+      </Wrapper>
+    )
+  }
+</header>
+
+<script>
+  const toggle = document.getElementById("dropdown-toggle");
+  const menu = document.getElementById("menu");
+  const setOpen = (open: boolean) => {
+    menu?.toggleAttribute("data-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+    toggle?.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+  toggle?.addEventListener("click", () => setOpen(!menu?.hasAttribute("data-open")));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setOpen(false);
+  });
+</script>

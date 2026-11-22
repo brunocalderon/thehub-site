@@ -1,0 +1,46 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const parts = [
+  {
+    title: "The week",
+    description:
+      "Every story we published, each with one line on why it is worth your time.",
+  },
+  {
+    title: "One studio",
+    description:
+      "A short visit to a studio we admire: who works there, what they made, and what they turned down.",
+  },
+  {
+    title: "The typeface",
+    description:
+      "The one family we kept setting all week, with a sample at the size you would actually use it.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {
+        parts.map((part, index) => (
+          <div class="flex flex-col gap-32 p-8 bg-white rounded-4xl lg:p-12">
+            <Text tag="span" variant="displayLG" class="font-display text-muted-foreground">
+              {String(index + 1).padStart(2, "0")}
+            </Text>
+            <div>
+              <Text tag="h2" variant="displaySM" class="font-display text-foreground">
+                {part.title}
+              </Text>
+              <Text variant="textBase" class="mt-4 text-muted-foreground text-pretty">
+                {part.description}
+              </Text>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

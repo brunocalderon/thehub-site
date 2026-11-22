@@ -1,0 +1,67 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const display = [
+  "display6XL",
+  "display5XL",
+  "display4XL",
+  "display3XL",
+  "display2XL",
+  "displayXL",
+  "displayLG",
+  "displayMD",
+  "displaySM",
+  "displayXS",
+];
+const text = ["textXL", "textLG", "textBase", "textSM", "textXS"];
+const groups = [
+  {
+    title: "Stack Sans Notch",
+    note: "Headings, labels and buttons",
+    variants: display,
+    sample: "Small type",
+    class: "font-display",
+  },
+  {
+    title: "Inter",
+    note: "Body text and descriptions",
+    variants: text,
+    sample: "Open any recent interface typeface at 12 pixels and put it next to one from ten years ago.",
+    class: "",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    {
+      groups.map((group) => (
+        <div class="p-8 bg-white rounded-4xl lg:p-12">
+          <Text tag="h2" variant="displayMD" class="font-display text-foreground">
+            {group.title}
+          </Text>
+          <Text variant="textBase" class="mt-2 text-muted-foreground">
+            {group.note}
+          </Text>
+          <div class="mt-12 divide-y divide-muted">
+            {group.variants.map((variant) => (
+              <div class="grid grid-cols-1 gap-4 py-6 lg:grid-cols-12">
+                <Text tag="span" variant="textSM" class="font-display text-muted-foreground lg:col-span-2">
+                  {variant}
+                </Text>
+                <Text
+                  tag="p"
+                  variant={variant}
+                  class:list={["text-foreground lg:col-span-10 text-balance", group.class]}
+                >
+                  {group.sample}
+                </Text>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </Wrapper>
+</section>

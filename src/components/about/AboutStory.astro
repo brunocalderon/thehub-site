@@ -1,0 +1,55 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const milestones = [
+  {
+    year: "2021",
+    title: "A Friday email",
+    description:
+      "Three designers in Bergen, Milan and Valencia send each other the one piece of work they cannot stop thinking about.",
+  },
+  {
+    year: "2022",
+    title: "Strangers write back",
+    description:
+      "The emails get forwarded and answered by people we have never met. A few thousand readers by the end of the year.",
+  },
+  {
+    year: "2024",
+    title: "Members arrive",
+    description:
+      "Long features, studio visits and the archive go behind a membership, and that keeps Tratto independent.",
+  },
+  {
+    year: "2026",
+    title: "One project at a time",
+    description:
+      "We would still rather follow one project closely than list ten quickly, and explain a decision than praise a result.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <ol class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
+      {
+        milestones.map((item) => (
+          <li class="flex flex-col gap-32 p-8 bg-white rounded-4xl">
+            <Text tag="span" variant="displayXL" class="font-display text-accent">
+              {item.year}
+            </Text>
+            <div>
+              <Text tag="h2" variant="displaySM" class="font-display text-foreground text-balance">
+                {item.title}
+              </Text>
+              <Text variant="textBase" class="mt-4 text-muted-foreground text-pretty">
+                {item.description}
+              </Text>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </Wrapper>
+</section>

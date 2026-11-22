@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+import { formatDate, getArticles, getReadingTime } from "@/lib/articles";
+import { getTopic } from "@/lib/topics";
+
+const articles = await getArticles();
+const lead = articles.find((article) => article.data.isFeatured) ?? articles[0];
+const author = await getEntry(lead.data.author);
+const topic = getTopic(lead.data.topics[0]);
+const url = `/articles/${lead.id}`;
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <article class="grid grid-cols-1 gap-2 lg:grid-cols-2">
+      <div
+        class="flex flex-col justify-between gap-16 p-8 text-white bg-foreground rounded-4xl lg:p-12"
+      >
+        <div class="flex flex-wrap items-center gap-2">
+          {
+            topic && (
+              <Button isLink href={`/topics/${topic.id}`} size="xs" variant="orange">
+                {topic.name}
+              </Button>
+            )
+          }
+          <Text tag="span" variant="textSM" class="font-display text-muted">
+            <time datetime={lead.data.pubDate.toISOString()}>
+              {formatDate(lead.data.pubDate)}
+            </time>
+          </Text>
+        </div>
+        <div>
+          <Text tag="h1" variant="display2XL" class="font-display text-balance">
+            <a href={url}>{lead.data.title}</a>
+          </Text>
+          <Text variant="textLG" class="mt-6 text-muted lg:w-3/4 text-pretty">
+            {lead.data.description}
+          </Text>
+          <div class="flex flex-wrap items-center justify-between gap-4 mt-12">
+            <Text tag="span" variant="textSM" class="font-display text-muted">
+              {author?.data.name} / {getReadingTime(lead)}
+            </Text>
+            <Button isLink href={url} size="base" variant="accent" gap="xs">
+              Read the story
+              <ChevronRight slot="right-icon" size="sm" />
+            </Button>
+          </div>
+        </div>
+      </div>
+      <a
+        href={url}
+        class="block overflow-hidden rounded-4xl bg-white"
+        style={`view-transition-name: cover-${lead.id}`}
+        tabindex="-1"
+      >
+        <Image
+          src={lead.data.cover.url}
+          alt={lead.data.cover.alt}
+          width={1200}
+          height={1200}
+          loading="eager"
+          class="object-cover size-full aspect-square"
+        />
+      </a>
+    </article>
+  </Wrapper>
+</section>

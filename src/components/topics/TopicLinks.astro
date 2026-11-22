@@ -1,0 +1,37 @@
+---
+import Button from "@/components/fundations/elements/Button.astro";
+import { topics } from "@/lib/topics";
+
+interface Props {
+  current?: string;
+  activeVariant?: "orange" | "default";
+  class?: string;
+}
+
+const { current, activeVariant = "orange", class: className } = Astro.props;
+const links = [
+  { href: "/articles", label: "All", active: current === undefined },
+  ...topics.map((topic) => ({
+    href: `/topics/${topic.id}`,
+    label: topic.name,
+    active: current === topic.id,
+  })),
+  { href: "/articles/members", label: "Members only", active: current === "members" },
+];
+---
+
+<nav aria-label="Topics" class:list={["flex flex-wrap gap-1", className]}>
+  {
+    links.map((link) => (
+      <Button
+        isLink
+        href={link.href}
+        size="xs"
+        variant={link.active ? activeVariant : "muted"}
+        aria-current={link.active ? "page" : undefined}
+      >
+        {link.label}
+      </Button>
+    ))
+  }
+</nav>

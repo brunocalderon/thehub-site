@@ -1,0 +1,46 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const quotes = [
+  {
+    quote: "The only email I open before coffee. The typeface section has sent me to three foundries.",
+    name: "Freja Lindqvist",
+    role: "Type designer",
+  },
+  {
+    quote: "Short enough to finish, specific enough to use. I forward the studio visit to my team most weeks.",
+    name: "Pablo Iturriaga",
+    role: "Interface designer",
+  },
+  {
+    quote: "It reads like a note from friends who happen to know a lot about design.",
+    name: "Giulia Ferraro",
+    role: "Studio founder",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {
+        quotes.map((item) => (
+          <figure class="flex flex-col gap-32 p-8 bg-white rounded-4xl lg:p-12">
+            <Text tag="blockquote" variant="displayXS" class="font-display text-foreground text-pretty">
+              {item.quote}
+            </Text>
+            <figcaption>
+              <Text tag="span" variant="textBase" class="block font-display text-foreground">
+                {item.name}
+              </Text>
+              <Text tag="span" variant="textSM" class="block mt-1 text-muted-foreground">
+                {item.role}
+              </Text>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

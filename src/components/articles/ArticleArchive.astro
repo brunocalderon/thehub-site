@@ -1,0 +1,52 @@
+---
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import ArticleCard from "@/components/articles/ArticleCard.astro";
+import TopicLinks from "@/components/topics/TopicLinks.astro";
+import type { Article } from "@/lib/articles";
+
+interface Props {
+  title: string;
+  description: string;
+  articles: Article[];
+  current?: string;
+}
+
+const {
+  title,
+  description,
+  articles,
+  current,
+} = Astro.props;
+const leads = articles.slice(0, 2);
+const rest = articles.slice(2);
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    <div class="px-8 pt-16 pb-8 text-white bg-foreground rounded-4xl lg:p-16">
+      <Text tag="h1" variant="display2XL" class="font-display">
+        {title}
+      </Text>
+      <Text variant="textLG" class="mt-6 font-display opacity-75 lg:w-1/2 text-pretty">
+        {description}
+      </Text>
+      <slot />
+      <TopicLinks
+        current={current}
+        activeVariant="orange"
+        class="mt-16"
+      />
+    </div>
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
+      {leads.map((article) => <ArticleCard article={article} size="lg" />)}
+    </div>
+    {
+      rest.length > 0 && (
+        <div class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+          {rest.map((article) => <ArticleCard article={article} />)}
+        </div>
+      )
+    }
+  </Wrapper>
+</section>

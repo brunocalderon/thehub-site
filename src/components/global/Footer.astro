@@ -1,0 +1,155 @@
+---
+import BigLogo from "@/components/assets/BigLogo.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import X from "@/components/fundations/icons/X.astro";
+import Linkedin from "@/components/fundations/icons/Linkedin.astro";
+import Envelope from "@/components/fundations/icons/Envelope.astro";
+import NewsletterForm from "@/components/newsletter/NewsletterForm.astro";
+import { topics } from "@/lib/topics";
+
+const columns = [
+  {
+    title: "Read",
+    ground: "bg-white text-foreground",
+    links: [
+      { name: "Latest", url: "/articles" },
+      { name: "Members only", url: "/articles/members" },
+      { name: "All topics", url: "/topics" },
+      { name: "Editors", url: "/authors" },
+      { name: "RSS", url: "/rss.xml" },
+    ],
+  },
+  {
+    title: "Topics",
+    ground: "bg-accent text-white",
+    links: topics.map((topic) => ({ name: topic.name, url: `/topics/${topic.id}` })),
+  },
+  {
+    title: "Tratto",
+    ground: "bg-white text-foreground",
+    links: [
+      { name: "About", url: "/about" },
+      { name: "Write for us", url: "/write-for-us" },
+      { name: "Advertise", url: "/advertise" },
+      { name: "Contact", url: "/contact" },
+    ],
+  },
+  {
+    title: "Members",
+    ground: "bg-pink text-white",
+    links: [
+      { name: "Membership", url: "/membership" },
+      { name: "Newsletter", url: "/newsletter" },
+      { name: "Sign in", url: "/sign-in" },
+      { name: "Create an account", url: "/sign-up" },
+    ],
+  },
+  {
+    title: "Legal",
+    ground: "bg-white text-foreground",
+    links: [
+      { name: "Terms", url: "/legal/terms" },
+      { name: "Privacy", url: "/legal/privacy" },
+      { name: "Cookies", url: "/legal/cookies" },
+      { name: "FAQ", url: "/legal/faq" },
+    ],
+  },
+];
+
+const socials = [
+  { label: "Tratto on X", icon: X },
+  { label: "Tratto on LinkedIn", icon: Linkedin },
+  { label: "Email Tratto", icon: Envelope },
+];
+---
+
+<footer>
+  <Wrapper variant="standard" class="py-2">
+    <div class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
+      <div
+        class="flex flex-col justify-between col-span-2 gap-12 p-8 text-white bg-foreground rounded-4xl md:col-span-4 lg:col-span-2 lg:row-span-2"
+      >
+        <div>
+          <Text tag="h2" variant="displaySM" class="font-display">
+            The Friday letter
+          </Text>
+          <Text variant="textBase" class="mt-4 text-muted text-pretty">
+            The week's stories, one studio visit and the typeface we kept coming back to.
+          </Text>
+        </div>
+        <NewsletterForm id="footer-email" />
+      </div>
+      {
+        columns.slice(0, 4).map((column) => (
+          <div class:list={["p-8 rounded-4xl", column.ground]}>
+            <Text tag="h2" variant="textBase" class="font-display">
+              {column.title}
+            </Text>
+            <ul role="list" class="flex flex-col gap-1 mt-12">
+              {column.links.map((link) => (
+                <li>
+                  <Text tag="a" variant="textSM" href={link.url} class="opacity-75 hover:opacity-100">
+                    {link.name}
+                  </Text>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <a
+        href="/"
+        aria-label="Tratto home"
+        class="flex items-center col-span-2 p-8 text-white bg-foreground rounded-4xl md:col-span-3 lg:p-12"
+      >
+        <BigLogo class="w-full" />
+      </a>
+      {
+        columns.slice(4).map((column) => (
+          <div class:list={["col-span-2 p-8 rounded-4xl md:col-span-1", column.ground]}>
+            <Text tag="h2" variant="textBase" class="font-display">
+              {column.title}
+            </Text>
+            <ul role="list" class="flex flex-col gap-1 mt-12">
+              {column.links.map((link) => (
+                <li>
+                  <Text tag="a" variant="textSM" href={link.url} class="opacity-75 hover:opacity-100">
+                    {link.name}
+                  </Text>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <div
+        class="flex flex-col justify-between col-span-2 gap-4 p-8 bg-orange text-foreground rounded-4xl sm:flex-row sm:items-center md:col-span-4"
+      >
+        <Text tag="p" variant="textSM" class="font-display">
+          © Tratto {new Date().getFullYear()}
+        </Text>
+        <div class="flex gap-6 font-display">
+          <Text tag="a" variant="textSM" href="https://lexingtonthemes.com/legal/license" class="hover:opacity-75">
+            License
+          </Text>
+          <Text tag="a" variant="textSM" href="https://lexingtonthemes.com/documentation" class="hover:opacity-75">
+            Documentation
+          </Text>
+        </div>
+      </div>
+      <div
+        class="flex items-center justify-center col-span-2 gap-1 p-6 bg-foreground rounded-4xl md:col-span-4 lg:col-span-2"
+      >
+        {
+          socials.map(({ label, icon: Icon }) => (
+            <Button isLink href="#_" size="base" variant="muted" iconOnly aria-label={label}>
+              <Icon slot="icon" size="base" />
+            </Button>
+          ))
+        }
+      </div>
+    </div>
+  </Wrapper>
+</footer>

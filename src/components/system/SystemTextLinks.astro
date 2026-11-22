@@ -1,0 +1,74 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+      <div class="flex flex-col justify-between gap-12 p-8 bg-white rounded-4xl">
+        <Text tag="h2" variant="textBase" class="font-display text-muted-foreground">
+          Headline, in lists and cards
+        </Text>
+        <Text tag="p" variant="displayXS" class="font-display text-foreground">
+          <a href="#_" class="duration-300 hover:text-accent">Why small type is getting wider</a>
+        </Text>
+      </div>
+      <div class="flex flex-col justify-between gap-12 p-8 bg-white rounded-4xl">
+        <Text tag="h2" variant="textBase" class="font-display text-muted-foreground">
+          Email, in contact cards
+        </Text>
+        <Text tag="a" href="#_" variant="displayMD" class="font-display text-foreground w-fit hover:text-accent">
+          hello@tratto.test
+        </Text>
+      </div>
+      <div class="flex flex-col justify-between gap-12 p-8 bg-white rounded-4xl">
+        <Text tag="h2" variant="textBase" class="font-display text-muted-foreground">
+          Inline, in article text
+        </Text>
+        <Wrapper variant="prose">
+          <p>Grafia publishes its specimens <a href="#_">at twelve pixels first</a>, then works up.</p>
+        </Wrapper>
+      </div>
+      <div class="flex flex-col justify-between gap-12 p-8 bg-white rounded-4xl">
+        <Text tag="h2" variant="textBase" class="font-display text-muted-foreground">
+          Footer and lists
+        </Text>
+        <ul role="list" class="pl-8">
+          <li>
+            <Text tag="a" variant="textSM" href="#_" class="text-muted-foreground hover:text-foreground">
+              About
+            </Text>
+          </li>
+          <li>
+            <Text tag="a" variant="textSM" href="#_" class="text-muted-foreground hover:text-foreground">
+              Authors
+            </Text>
+          </li>
+          <li>
+            <Text tag="a" variant="textSM" href="#_" class="text-muted-foreground hover:text-foreground">
+              Advertise
+            </Text>
+          </li>
+        </ul>
+      </div>
+      <div class="flex flex-col justify-between gap-12 p-8 bg-white rounded-4xl">
+        <Text tag="h2" variant="textBase" class="font-display text-muted-foreground">
+          Byline, under articles
+        </Text>
+        <Text tag="a" href="#_" variant="textBase" class="font-display text-foreground w-fit hover:text-accent">
+          Ingrid Solberg
+        </Text>
+      </div>
+      <div class="flex flex-col justify-between gap-12 p-8 bg-foreground rounded-4xl">
+        <Text tag="h2" variant="textBase" class="font-display text-muted">
+          On dark, in forms
+        </Text>
+        <p class="text-xs text-white font-display">
+          New to Tratto?{" "}
+          <a href="#_" class="font-medium text-pink hover:text-background">Create an account</a>
+        </p>
+      </div>
+    </div>
+  </Wrapper>
+</section>

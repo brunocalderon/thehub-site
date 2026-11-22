@@ -1,0 +1,93 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+
+const desks = [
+  { name: "Editorial", note: "Corrections and tips", email: "hello@tratto.test" },
+  { name: "Pitches", note: "Story ideas from writers", email: "pitches@tratto.test" },
+  { name: "Advertising", note: "Sponsors and partners", email: "ads@tratto.test" },
+  { name: "Members", note: "Billing and accounts", email: "members@tratto.test" },
+];
+
+const field =
+  "block w-full px-4 py-2 font-display text-3xl text-white border border-transparent appearance-none bg-muted-foreground rounded-3xl duration-300 placeholder-muted focus:bg-transparent focus:outline-none focus:ring-pink focus:ring-offset-2 focus:ring-2 focus:ring-offset-foreground";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-12">
+      <div class="flex flex-col gap-2 lg:col-span-5">
+        {
+          desks.map((desk) => (
+            <div class="flex flex-col justify-between flex-1 gap-6 p-8 bg-white rounded-4xl">
+              <div>
+                <Text tag="h2" variant="displaySM" class="font-display text-foreground">
+                  {desk.name}
+                </Text>
+                <Text variant="textBase" class="mt-1 text-muted-foreground">
+                  {desk.note}
+                </Text>
+              </div>
+              <Text
+                tag="a"
+                href="#_"
+                variant="textLG"
+                class="font-display text-foreground w-fit hover:text-accent"
+              >
+                {desk.email}
+              </Text>
+            </div>
+          ))
+        }
+      </div>
+      <form class="flex flex-col gap-6 p-8 bg-foreground rounded-4xl lg:col-span-7 lg:p-12">
+        <Text tag="h2" variant="displayXL" class="font-display text-white">
+          Send a message
+        </Text>
+        <div class="flex flex-col gap-6">
+          <div class="flex flex-col gap-2">
+            <label for="contact-name" class="text-sm font-display text-background">Name</label>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              autocomplete="name"
+              required
+              placeholder="Your name"
+              class:list={[field, "h-20"]}
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <label for="contact-email" class="text-sm font-display text-background">Email</label>
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder="you@studio.test"
+              class:list={[field, "h-20"]}
+            />
+          </div>
+        </div>
+        <div class="flex flex-col flex-1 gap-2">
+          <label for="contact-message" class="text-sm font-display text-background">
+            Message
+          </label>
+          <textarea
+            id="contact-message"
+            name="message"
+            rows="8"
+            required
+            placeholder="What would you like to tell us?"
+            class:list={[field, "flex-1 resize-none"]}></textarea>
+        </div>
+        <Button type="submit" size="20" variant="pink" iconOnly aria-label="Send message">
+          <ChevronRight slot="icon" size="xl" />
+        </Button>
+      </form>
+    </div>
+  </Wrapper>
+</section>

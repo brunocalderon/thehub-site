@@ -1,0 +1,28 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-2 lg:p-16">
+      <div>
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground">
+          Send a pitch
+        </Text>
+        <Text variant="textLG" class="mt-4 text-muted-foreground text-pretty">
+          Put the topic in the subject line and a link to your work in the email. One pitch per
+          message, please.
+        </Text>
+      </div>
+      <Text
+        tag="a"
+        href="#_"
+        variant="displayMD"
+        class="self-end font-display text-foreground hover:text-accent"
+      >
+        pitches@tratto.test
+      </Text>
+    </div>
+  </Wrapper>
+</section>

@@ -1,0 +1,31 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const colors = [
+  { token: "foreground", swatch: "bg-foreground" },
+  { token: "muted-foreground", swatch: "bg-muted-foreground" },
+  { token: "background", swatch: "bg-background" },
+  { token: "muted", swatch: "bg-muted" },
+  { token: "accent", swatch: "bg-accent" },
+  { token: "orange", swatch: "bg-orange" },
+  { token: "pink", swatch: "bg-pink" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-7">
+      {
+        colors.map((color) => (
+          <div class="flex flex-col p-2 bg-white rounded-4xl">
+            <div class:list={["aspect-square rounded-3xl ring-1 ring-muted", color.swatch]} />
+            <Text tag="h2" variant="textBase" class="p-4 font-display text-foreground">
+              {color.token}
+            </Text>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

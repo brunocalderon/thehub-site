@@ -1,0 +1,75 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+import { getArticles } from "@/lib/articles";
+import { topics } from "@/lib/topics";
+
+const articles = await getArticles();
+const rows = topics.map((topic) => {
+  const inTopic = articles.filter((article) => article.data.topics.includes(topic.id));
+  return { topic, count: inTopic.length, latest: inTopic.slice(0, 3) };
+});
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    <div class="px-8 pt-16 pb-8 text-white bg-foreground rounded-4xl lg:p-16">
+      <Text tag="h1" variant="display2XL" class="font-display">Topics</Text>
+      <Text variant="textLG" class="mt-6 font-display text-muted lg:w-1/2 text-pretty">
+        Four subjects, each covered by the editor who knows it best.
+      </Text>
+    </div>
+    {
+      rows.map(({ topic, count, latest }) => (
+        <article
+          class:list={[
+            "grid grid-cols-1 gap-12 p-8 rounded-4xl lg:grid-cols-2 lg:p-16",
+            topic.ground,
+          ]}
+        >
+          <div class="flex flex-col justify-between gap-12">
+            <div>
+              <Text tag="h2" variant="displayXL" class="font-display">
+                <a href={`/topics/${topic.id}`}>{topic.name}</a>
+              </Text>
+              <Text variant="textLG" class="mt-6 font-display opacity-75 lg:w-3/4 text-pretty">
+                {topic.description}
+              </Text>
+            </div>
+            <div class="flex items-center gap-4">
+              <Button
+                isLink
+                href={`/topics/${topic.id}`}
+                size="xl"
+                variant="muted"
+                iconOnly
+                aria-label={`All ${topic.name} articles`}
+              >
+                <ChevronRight slot="icon" size="lg" />
+              </Button>
+              <Text tag="span" variant="textSM" class="font-display opacity-75">
+                {count} articles
+              </Text>
+            </div>
+          </div>
+          <ol class="flex flex-col gap-6">
+            {latest.map((article, index) => (
+              <li class="grid grid-cols-12 gap-4">
+                <Text tag="span" variant="displayXS" class="col-span-2 font-display opacity-75">
+                  {String(index + 1).padStart(2, "0")}
+                </Text>
+                <Text tag="h3" variant="displayXS" class="col-span-10 font-display text-balance">
+                  <a href={`/articles/${article.id}`} class="hover:opacity-75">
+                    {article.data.title}
+                  </a>
+                </Text>
+              </li>
+            ))}
+          </ol>
+        </article>
+      ))
+    }
+  </Wrapper>
+</section>

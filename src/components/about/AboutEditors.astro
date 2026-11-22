@@ -1,0 +1,32 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+import AuthorCard from "@/components/authors/AuthorCard.astro";
+import { getEditors } from "@/lib/authors";
+
+const authors = await getEditors();
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    <div
+      class="flex flex-col justify-between gap-6 p-8 text-white bg-foreground rounded-4xl sm:flex-row lg:items-end lg:p-12"
+    >
+      <div>
+        <Text tag="h2" variant="displayXL" class="font-display">The editors</Text>
+        <Text variant="textLG" class="mt-4 font-display text-muted text-pretty">
+          Between us we have set books, shipped products and run a studio.
+        </Text>
+      </div>
+      <Button isLink href="/authors" size="sm" variant="muted" gap="xs" class="w-fit shrink-0">
+        All editors
+        <ChevronRight slot="right-icon" size="xs" />
+      </Button>
+    </div>
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {authors.map((props) => <AuthorCard {...props} />)}
+    </div>
+  </Wrapper>
+</section>

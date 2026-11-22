@@ -1,0 +1,43 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+import ArticleCard from "@/components/articles/ArticleCard.astro";
+import { getArticles } from "@/lib/articles";
+
+const articles = (await getArticles())
+  .filter((article) => article.data.isMembersOnly)
+  .slice(0, 3);
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    <div
+      class="flex flex-col justify-between gap-6 p-8 text-white bg-foreground rounded-4xl sm:flex-row lg:items-end lg:p-12"
+    >
+      <div>
+        <Text tag="h2" variant="displayXL" class="font-display text-balance">
+          What members read
+        </Text>
+        <Text variant="textLG" class="mt-4 font-display text-muted text-pretty">
+          The latest features behind the membership, a few thousand words each.
+        </Text>
+      </div>
+      <Button
+        isLink
+        href="/articles/members"
+        size="sm"
+        variant="muted"
+        gap="xs"
+        class="w-fit shrink-0"
+      >
+        All members articles
+        <ChevronRight slot="right-icon" size="xs" />
+      </Button>
+    </div>
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {articles.map((article) => <ArticleCard article={article} />)}
+    </div>
+  </Wrapper>
+</section>

@@ -1,0 +1,14 @@
+---
+description: Snowpeak file-based routing, dynamic segments, and layout usage under src/pages.
+globs: src/pages/**
+---
+
+# Pages & routing (Snowpeak)
+
+- **Layouts:** Article, author and legal detail pages use `ArticleLayout`, `AuthorLayout` and `LegalLayout` from `src/layouts/`. Everything else uses `BaseLayout.astro` and composes sections from `src/components/<area>/`. Never write sections inline in a page.
+- **Layout props:** `<BaseLayout hideNav hideFooter>` removes the navigation and footer (`sign-in`, `sign-up` and the 404 use both).
+- **Dynamic routes:** `articles/[id].astro`, `authors/[id].astro` and `legal/[id].astro` use `getStaticPaths` + `getCollection` from `astro:content` and only pass `id` and `frontmatter={entry.data}` to their layout. Articles and legal add `<Content />` from `render()` in the slot; author pages have no body.
+- **Archives:** `articles/index.astro`, `articles/members.astro` and `topics/[topic].astro` render `ArticleArchive`; topics build one page per entry in `src/lib/topics.ts`.
+- **Sections:** Every section's `Wrapper` takes `pt-2` so cards keep one `gap-2` rhythm; the first card takes `px-8 pt-16 pb-8 lg:p-16` to clear the floating navigation. Keep one `h1` per page and don't skip heading levels.
+- **Overview:** Add every new page to `src/pages/system/overview.astro`.
+- **RSS:** `src/pages/rss.xml.js` reads `getArticles()` and links to `/articles/{id}/`; keep it in sync if you change the article URL.

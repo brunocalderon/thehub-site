@@ -1,0 +1,28 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-2 lg:p-16">
+      <div>
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground">
+          Book a slot
+        </Text>
+        <Text variant="textLG" class="mt-4 text-muted-foreground text-pretty">
+          Tell us about your brand and the dates you have in mind. We only take sponsors we would
+          use ourselves, and we never write sponsored articles.
+        </Text>
+      </div>
+      <Text
+        tag="a"
+        href="#_"
+        variant="displayMD"
+        class="self-end font-display text-foreground hover:text-accent"
+      >
+        ads@tratto.test
+      </Text>
+    </div>
+  </Wrapper>
+</section>

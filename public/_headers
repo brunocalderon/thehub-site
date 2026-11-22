@@ -1,0 +1,5 @@
+# Keeps the theme's live demo on pages.dev out of search results.
+# It only matches *.pages.dev addresses, so your own domain is indexed as
+# normal. Delete this file if you want a pages.dev site indexed.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

@@ -1,0 +1,55 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const headers = [
+  { label: "From", value: "Tratto" },
+  { label: "Date", value: "Friday, Oct 16, 2026" },
+  { label: "Subject", value: "Why small type is getting wider" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-12">
+      <div class="p-8 bg-orange text-foreground rounded-4xl lg:col-span-4 lg:p-12">
+        <Text tag="h2" variant="displayXL" class="font-display text-balance">
+          Read a letter
+        </Text>
+        <Text variant="textLG" class="mt-4 opacity-75 text-pretty">
+          This is how last Friday opened. Five minutes to read, no tracking pixels and one link to
+          leave.
+        </Text>
+      </div>
+      <article class="p-8 bg-white rounded-4xl lg:col-span-8 lg:p-12">
+        <dl class="divide-y divide-muted">
+          {
+            headers.map((item) => (
+              <div class="grid grid-cols-12 gap-4 py-4 first:pt-0">
+                <Text tag="dt" variant="textSM" class="col-span-3 font-display text-muted-foreground">
+                  {item.label}
+                </Text>
+                <Text tag="dd" variant="textBase" class="col-span-9 font-display text-foreground">
+                  {item.value}
+                </Text>
+              </div>
+            ))
+          }
+        </dl>
+        <div class="flex flex-col max-w-2xl gap-4 mt-12">
+          <Text variant="textLG" class="text-foreground text-pretty">Good morning,</Text>
+          <Text variant="textLG" class="text-muted-foreground text-pretty">
+            Three of the typefaces we set this week shipped a wider cut for small sizes, and none of
+            them called it a new family. We spent Tuesday finding out why, and the answer has more to
+            do with phone screens than with fashion.
+          </Text>
+          <Text variant="textLG" class="text-muted-foreground text-pretty">
+            Also this week: a studio in Turin that turns down half its briefs, and the settings page
+            people actually read to the end.
+          </Text>
+          <Text variant="textLG" class="mt-4 text-foreground">Ingrid, Lucía and Matteo</Text>
+        </div>
+      </article>
+    </div>
+  </Wrapper>
+</section>

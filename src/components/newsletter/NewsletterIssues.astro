@@ -1,0 +1,51 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const issues = [
+  { number: "No. 212", date: "Oct 16, 2026", title: "Why small type is getting wider" },
+  { number: "No. 211", date: "Oct 9, 2026", title: "What a logo has to survive in 2026" },
+  { number: "No. 210", date: "Oct 2, 2026", title: "Inside a four-person studio in Turin" },
+  { number: "No. 209", date: "Sep 25, 2026", title: "Dark mode without the grey mush" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-foreground rounded-4xl lg:grid-cols-12 lg:p-16">
+      <div class="lg:col-span-4">
+        <Text tag="h2" variant="displayXL" class="font-display text-white">
+          Recent letters
+        </Text>
+        <Text variant="textLG" class="mt-4 text-muted text-pretty">
+          What the last four Fridays looked like.
+        </Text>
+      </div>
+      <ol class="divide-y lg:col-span-8 divide-muted-foreground">
+        {
+          issues.map((issue) => (
+            <li class="grid grid-cols-12 gap-4 py-6 first:pt-0 last:pb-0">
+              <Text tag="span" variant="textSM" class="col-span-3 font-display text-muted">
+                {issue.number}
+              </Text>
+              <Text
+                tag="h3"
+                variant="displayXS"
+                class="col-span-9 font-display text-white sm:col-span-6 text-balance"
+              >
+                {issue.title}
+              </Text>
+              <Text
+                tag="span"
+                variant="textSM"
+                class="col-span-9 col-start-4 font-display text-muted sm:col-span-3 sm:col-start-auto"
+              >
+                {issue.date}
+              </Text>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </Wrapper>
+</section>

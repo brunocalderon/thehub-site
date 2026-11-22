@@ -1,0 +1,67 @@
+---
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+import { getArticles, getReadingTime } from "@/lib/articles";
+import { getTopic } from "@/lib/topics";
+
+const articles = await getArticles();
+const leadId = (articles.find((article) => article.data.isFeatured) ?? articles[0]).id;
+const week = articles.filter((article) => article.id !== leadId).slice(0, 6);
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="p-8 bg-white rounded-4xl lg:p-12">
+      <div class="flex flex-col justify-between gap-6 sm:flex-row lg:items-end">
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground">
+          This week
+        </Text>
+        <Button isLink href="/articles" size="sm" variant="default" gap="xs" class="w-fit">
+          All articles
+          <ChevronRight slot="right-icon" size="xs" />
+        </Button>
+      </div>
+      <ol class="mt-12 divide-y divide-muted">
+        {
+          week.map((article, index) => (
+            <li class="relative grid grid-cols-12 gap-4 py-6 group">
+              <Text
+                tag="span"
+                variant="displaySM"
+                class="col-span-2 font-display text-muted-foreground lg:col-span-1"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </Text>
+              <div class="col-span-10 lg:col-span-7">
+                <Text
+                  tag="h3"
+                  variant="displaySM"
+                  class="font-display duration-300 text-foreground text-balance group-hover:text-accent"
+                >
+                  <a href={`/articles/${article.id}`}>
+                    <span class="absolute inset-0" aria-hidden="true" />
+                    {article.data.title}
+                  </a>
+                </Text>
+                {article.data.isMembersOnly && (
+                  <Text tag="span" variant="textXS" class="block mt-2 font-display text-pink">
+                    Members only
+                  </Text>
+                )}
+              </div>
+              <Text
+                tag="span"
+                variant="textSM"
+                class="col-span-10 col-start-3 font-display text-muted-foreground lg:col-span-4 lg:col-start-auto"
+              >
+                {getTopic(article.data.topics[0])?.name} / {getReadingTime(article)}
+              </Text>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </Wrapper>
+</section>

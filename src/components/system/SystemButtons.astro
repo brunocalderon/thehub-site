@@ -1,0 +1,77 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Plus from "@/components/fundations/icons/Plus.astro";
+
+interface Props {
+  isLink?: boolean;
+}
+
+const { isLink = false } = Astro.props;
+const link = isLink ? { isLink: true, href: "#_" } : {};
+
+const variants = [
+  { name: "Default", variant: "default" },
+  { name: "Accent", variant: "accent" },
+  { name: "Pink", variant: "pink" },
+  { name: "Orange", variant: "orange" },
+  { name: "Muted", variant: "muted" },
+];
+const sizes = [
+  { size: "xxs", icon: "sm" },
+  { size: "xs", icon: "sm" },
+  { size: "sm", icon: "base" },
+  { size: "base", icon: "base" },
+  { size: "md", icon: "lg" },
+  { size: "lg", icon: "xl" },
+  { size: "xl", icon: "xl" },
+  { size: "xxl", icon: "xl" },
+  { size: "16", icon: "xl" },
+  { size: "17", icon: "xl" },
+  { size: "18", icon: "xl" },
+  { size: "19", icon: "xl" },
+  { size: "20", icon: "xl" },
+  { size: "21", icon: "xl" },
+  { size: "22", icon: "xl" },
+  { size: "23", icon: "xl" },
+  { size: "24", icon: "xl" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-5">
+      {
+        variants.map((item) => (
+          <div
+            class:list={[
+              "p-8 rounded-4xl",
+              item.variant === "muted" ? "bg-foreground text-white" : "bg-white text-foreground",
+            ]}
+          >
+            <Text tag="h2" variant="displaySM" class="font-display">
+              {item.name}
+            </Text>
+            <div class="grid grid-cols-2 gap-4 mt-8">
+              <div class="flex flex-col items-start gap-4">
+                {sizes.map(({ size }) => (
+                  <Button variant={item.variant} size={size} {...link}>
+                    {size}
+                  </Button>
+                ))}
+              </div>
+              <div class="flex flex-col items-start gap-4">
+                {sizes.map(({ size, icon }) => (
+                  <Button variant={item.variant} size={size} iconOnly {...link} aria-label={`${item.name} ${size}`}>
+                    <Plus slot="icon" size={icon} />
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

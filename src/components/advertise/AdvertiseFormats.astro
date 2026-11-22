@@ -1,0 +1,65 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const formats = [
+  {
+    name: "Friday letter",
+    price: "$1,200",
+    unit: "Per issue",
+    description:
+      "One sponsor per letter, placed after the first story. Text and a link, written with you.",
+    ground: "bg-accent text-white",
+  },
+  {
+    name: "Site banner",
+    price: "$900",
+    unit: "Per week",
+    description:
+      "A full width banner under every article for seven days. Members never see it.",
+    ground: "bg-pink text-white",
+  },
+  {
+    name: "Topic partner",
+    price: "$3,000",
+    unit: "Per month",
+    description:
+      "Your brand on one topic page and every article in it for a month. One partner per topic.",
+    ground: "bg-foreground text-white",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {
+        formats.map((format) => (
+          <div
+            class:list={[
+              "flex flex-col gap-32 p-8 rounded-4xl lg:p-12",
+              format.ground,
+            ]}
+          >
+            <div>
+              <Text tag="h2" variant="displaySM" class="font-display">
+                {format.name}
+              </Text>
+              <Text variant="textBase" class="mt-4 opacity-75 text-pretty">
+                {format.description}
+              </Text>
+            </div>
+            <div class="font-display">
+              <Text tag="p" variant="displayXL">
+                {format.price}
+              </Text>
+              <Text variant="textSM" class="mt-2 opacity-75">
+                {format.unit}
+              </Text>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

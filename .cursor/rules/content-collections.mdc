@@ -1,0 +1,16 @@
+---
+description: Content collection schemas, references, frontmatter discipline, and image() fields for Snowpeak src/content and content.config.
+globs: src/content/**,src/content.config.ts,src/lib/**
+---
+
+# Content collections (Snowpeak)
+
+- **Single source of truth:** `src/content.config.ts` defines `articles`, `authors` and `legal` with Zod + `glob` loaders under `src/content/<folder>/`. Do not widen or rename schema fields without updating all consumers.
+- **Helpers:** `getArticles`, `formatDate`, `getReadingTime` (`src/lib/articles.ts`); `getEditors`, `getAuthorArticles` (`src/lib/authors.ts`); `topics`, `getTopic` (`src/lib/topics.ts`).
+- **References:** `articles.author` points at `authors` by entry id (filename without `.md`), e.g. `lucia-navarro`. Resolve it with `getEntry`. Renaming an author means updating every article that points at them.
+- **Topics:** `topics` is an array of ids from `src/lib/topics.ts` (`type`, `interfaces`, `identity`, `studios`); the first sets the article's colour. Adding a topic means adding it there with a `name`, `description` and `ground`; `/topics/[topic]`, the filters and the home tiles build from that list.
+- **Flags:** one article is `isFeatured` (the home lead). `isMembersOnly` swaps the text for the members gate and lists the article on `/articles/members`.
+- **`image()` fields:** `cover` and `portrait` are `{ url, alt }` through Astro's image pipeline. Covers are 1200 by 800 SVGs in `src/images/covers/`, portraits 800 by 800 in `src/images/authors/`.
+- **Archive grids:** archives show two leads, then rows of three. Keep the article count so the last row fills.
+- **People and copy:** Names in demo content are Spanish, Nordic, English or Italian. The demo publication is "Tratto".
+- **Copy-paste templates:** `src/content/articles/the-toolbar-is-back.md`, `src/content/authors/lucia-navarro.md`, `src/content/legal/terms.md`.

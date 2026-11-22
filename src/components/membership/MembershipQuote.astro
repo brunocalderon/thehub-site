@@ -1,0 +1,21 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <figure class="flex flex-col gap-32 p-8 text-white bg-pink rounded-4xl lg:p-16">
+      <Text tag="blockquote" variant="display2XL" class="font-display lg:w-5/6 text-balance">
+        The studio visits alone are worth it. I read one on the train and changed how we brief
+        clients the next morning.
+      </Text>
+      <figcaption>
+        <Text tag="span" variant="textLG" class="block font-display">Sigrid Halvorsen</Text>
+        <Text tag="span" variant="textBase" class="block mt-1 opacity-75">
+          Design director, member since 2023
+        </Text>
+      </figcaption>
+    </figure>
+  </Wrapper>
+</section>

@@ -1,0 +1,102 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const plans = [
+  {
+    name: "Reader",
+    price: "Free",
+    note: "Forever",
+    description: "Every free article and the Friday letter.",
+    features: [
+      "All free articles",
+      "The Friday letter",
+      "Briefs on new releases",
+    ],
+    cta: "Sign up",
+    href: "/sign-up",
+    ground: "bg-white text-foreground",
+    button: "default",
+    marker: "marker:text-accent",
+  },
+  {
+    name: "Member",
+    price: "$8",
+    note: "A month, or $80 a year",
+    description: "Everything we publish, and the archive.",
+    features: [
+      "Every feature and studio visit",
+      "The full archive since 2021",
+      "No ads anywhere",
+      "A members letter once a month",
+    ],
+    cta: "Become a member",
+    href: "/sign-up",
+    ground: "bg-foreground text-white",
+    button: "pink",
+    marker: "marker:text-pink",
+  },
+  {
+    name: "Studio",
+    price: "$40",
+    note: "A month, up to ten seats",
+    description: "Membership for the whole team.",
+    features: [
+      "Everything in Member",
+      "Up to ten seats",
+      "One invoice for the studio",
+      "Add or remove seats any time",
+    ],
+    cta: "Get Studio",
+    href: "/sign-up",
+    ground: "bg-white text-foreground",
+    button: "default",
+    marker: "marker:text-orange",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {
+        plans.map((plan) => (
+          <div
+            class:list={["flex flex-col justify-between gap-16 p-8 rounded-4xl lg:p-12", plan.ground]}
+          >
+            <div>
+              <Text tag="h2" variant="displaySM" class="font-display">
+                {plan.name}
+              </Text>
+              <Text variant="textBase" class="mt-2 opacity-75">
+                {plan.description}
+              </Text>
+              <Text tag="p" variant="displayXL" class="mt-12 font-display">
+                {plan.price}
+              </Text>
+              <Text variant="textSM" class="mt-2 font-display opacity-75">
+                {plan.note}
+              </Text>
+              <ul
+                role="list"
+                class:list={["flex flex-col gap-2 pl-5 mt-12 list-disc-dot", plan.marker]}
+              >
+                {plan.features.map((feature) => (
+                  <li class="pl-2">
+                    <Text tag="span" variant="textBase">
+                      {feature}
+                    </Text>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Button isLink href={plan.href} size="xl" variant={plan.button} class="w-full">
+              {plan.cta}
+            </Button>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

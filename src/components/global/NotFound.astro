@@ -1,0 +1,57 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getArticles, getReadingTime } from "@/lib/articles";
+import { getTopic } from "@/lib/topics";
+
+const latest = (await getArticles()).slice(0, 3);
+---
+
+<section>
+  <Wrapper variant="standard" class="py-4">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:h-screen-inset">
+      <div
+        class="flex flex-col justify-between gap-24 p-8 bg-orange text-foreground rounded-4xl lg:p-16"
+      >
+        <Text tag="p" variant="display2XL" class="font-display">404</Text>
+        <div>
+          <Text tag="h1" variant="displayXL" class="font-display text-balance">
+            This page moved or never existed
+          </Text>
+          <Text variant="textLG" class="mt-6 font-display opacity-75 lg:w-3/4 text-pretty">
+            The link may be old, or the story may have a new address. Everything we publish is in
+            the archive.
+          </Text>
+          <Button isLink href="/articles" size="sm" variant="default" class="mt-8 w-fit">
+            Browse the articles
+          </Button>
+        </div>
+      </div>
+      <div class="flex flex-col justify-end gap-12 p-8 text-white bg-foreground rounded-4xl lg:p-16">
+        <Text tag="h2" variant="displayMD" class="font-display">Read this instead</Text>
+        <ol class="divide-y divide-muted-foreground">
+          {
+            latest.map((article) => (
+              <li class="relative py-6 first:pt-0 last:pb-0 group">
+                <Text
+                  tag="h3"
+                  variant="displayXS"
+                  class="font-display duration-300 text-balance group-hover:text-orange"
+                >
+                  <a href={`/articles/${article.id}`}>
+                    <span class="absolute inset-0" aria-hidden="true" />
+                    {article.data.title}
+                  </a>
+                </Text>
+                <Text tag="span" variant="textSM" class="block mt-2 font-display text-muted">
+                  {getTopic(article.data.topics[0])?.name} / {getReadingTime(article)}
+                </Text>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </Wrapper>
+</section>

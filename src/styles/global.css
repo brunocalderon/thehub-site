@@ -1,0 +1,56 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+@utility h-screen-inset {
+  height: calc(100svh - 2rem);
+}
+@view-transition {
+  navigation: auto;
+}
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+@layer base {
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+@utility list-disc-dot {
+  list-style-type: "●";
+}
+@theme {
+  /* Typography*/
+  --font-sans: "InterVariable", sans-serif;
+  --font-display: "Stack Sans Notch", sans-serif;
+  /* Colors */
+  --color-background: oklch(0.686 0 0);
+  --color-foreground: oklch(0.239 0 0);
+  --color-muted-foreground: oklch(0.475 0 0);
+  --color-muted: oklch(0.94 0 0);
+  --color-accent: oklch(0.5196 0.262 286.62);
+  --color-orange: oklch(0.7719 0.152 69.58);
+  --color-pink: oklch(0.6834 0.284 330.57);
+  /* Sizes */
+  --radius-6xl: 4rem;
+  --text-10xl: 10rem;
+  --text-10xl--line-height: 1;
+  --text-11xl: 12rem;
+  --text-11xl--line-height: 1;
+  --container-10xl: 100rem;
+}
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}

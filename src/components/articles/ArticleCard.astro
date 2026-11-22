@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+import Text from "@/components/fundations/elements/Text.astro";
+import { getReadingTime, type Article } from "@/lib/articles";
+import { getTopic } from "@/lib/topics";
+
+interface Props {
+  article: Article;
+  size?: "base" | "lg";
+}
+
+const { article, size = "base" } = Astro.props;
+const url = `/articles/${article.id}`;
+---
+
+<article
+  class="relative flex flex-col h-full p-2 duration-500 bg-white group rounded-4xl hover:bg-muted"
+>
+  <Image
+    style={`view-transition-name: cover-${article.id}`}
+    src={article.data.cover.url}
+    alt={article.data.cover.alt}
+    width={1200}
+    height={800}
+    class:list={[
+      "object-cover w-full rounded-3xl",
+      size === "lg" ? "aspect-3/2" : "aspect-4/3",
+    ]}
+  />
+  <div class="flex flex-col justify-between flex-1 gap-8 p-6">
+    <Text
+      tag="h3"
+      variant={size === "lg" ? "displayMD" : "displayXS"}
+      class="font-display text-foreground text-balance"
+    >
+      <a href={url}>
+        <span class="absolute inset-0" aria-hidden="true"></span>
+        {article.data.title}
+      </a>
+    </Text>
+    <div class="flex flex-wrap items-center justify-between gap-2 font-display">
+      <Text tag="span" variant="textSM" class="text-muted-foreground">
+        {getTopic(article.data.topics[0])?.name} / {getReadingTime(article)}
+      </Text>
+      {
+        article.data.isMembersOnly && (
+          <Text tag="span" variant="textSM" class="text-pink">
+            Members only
+          </Text>
+        )
+      }
+    </div>
+  </div>
+</article>

@@ -1,0 +1,15 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ArticleArchive from "@/components/articles/ArticleArchive.astro";
+import { getArticles } from "@/lib/articles";
+
+const articles = await getArticles();
+---
+
+<BaseLayout>
+  <ArticleArchive
+    title="Articles"
+    description="Everything we have published on type, interfaces, identity and the studios behind them, newest first."
+    articles={articles}
+  />
+</BaseLayout>

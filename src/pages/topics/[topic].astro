@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ArticleArchive from "@/components/articles/ArticleArchive.astro";
+import { getArticles } from "@/lib/articles";
+import { topics } from "@/lib/topics";
+
+export function getStaticPaths() {
+  return topics.map((topic) => ({ params: { topic: topic.id }, props: { topic } }));
+}
+
+const { topic } = Astro.props;
+const articles = (await getArticles()).filter((article) =>
+  article.data.topics.includes(topic.id),
+);
+---
+
+<BaseLayout>
+  <ArticleArchive
+    title={topic.name}
+    description={topic.description}
+    articles={articles}
+    current={topic.id}
+  />
+</BaseLayout>

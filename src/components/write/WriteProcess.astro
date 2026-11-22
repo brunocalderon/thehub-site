@@ -1,0 +1,56 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const steps = [
+  {
+    title: "Pitch",
+    description:
+      "Send three or four sentences: what happened, why it matters, and what you can show. No finished drafts.",
+  },
+  {
+    title: "Edit",
+    description:
+      "If it fits, one editor works with you from outline to final draft. Most pieces take two rounds.",
+  },
+  {
+    title: "Publish",
+    description:
+      "We pay $600 for a feature and $250 for a brief, within two weeks of publishing. You keep the rights.",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-12 lg:p-16">
+      <div class="lg:col-span-4">
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground">
+          How it works
+        </Text>
+        <Text variant="textLG" class="mt-4 text-muted-foreground text-pretty">
+          We answer every pitch within ten days.
+        </Text>
+      </div>
+      <ol class="divide-y lg:col-span-8 divide-muted">
+        {
+          steps.map((step, index) => (
+            <li class="grid grid-cols-12 gap-4 py-8 first:pt-0 last:pb-0">
+              <Text tag="span" variant="displaySM" class="col-span-2 font-display text-muted-foreground">
+                {String(index + 1).padStart(2, "0")}
+              </Text>
+              <div class="col-span-10">
+                <Text tag="h3" variant="displaySM" class="font-display text-foreground">
+                  {step.title}
+                </Text>
+                <Text variant="textBase" class="mt-2 text-muted-foreground text-pretty">
+                  {step.description}
+                </Text>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </Wrapper>
+</section>

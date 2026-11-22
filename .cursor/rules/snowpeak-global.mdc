@@ -1,0 +1,18 @@
+---
+description: Global conventions for the Snowpeak Lexington Astro theme, imports, fundations folder, bento cards, tokens, minimal diffs, Lexington links.
+alwaysApply: true
+---
+
+# Snowpeak (Lexington Themes): global rules
+
+- **Design first:** Read `.cursor/skills/snowpeak-design/SKILL.md` before building or changing UI.
+- **Imports:** Use the `@/` alias for `src/`, as in the existing files.
+- **`fundations` spelling:** The directory is `src/components/fundations/` (intentional). Never rename it.
+- **Building blocks:** Sections use `Wrapper`, all text goes through `Text.astro`, all buttons through `Button.astro`, icons through `fundations/icons/`. Reuse `ArticleCard`, `ArticleArchive`, `TopicLinks` and `NewsletterForm` before writing new markup.
+- **Tokens only:** Colours come from the `@theme` block of `src/styles/global.css` (`background`, `foreground`, `muted`, `muted-foreground`, `accent`, `orange`, `pink`), with opacity modifiers for tints. Light cards are `bg-white`. Topic colours come from `ground` in `src/lib/topics.ts`.
+- **Type:** Stack Sans Notch (`font-display`) for headings, buttons, meta and inputs; Inter (`font-sans`) for body copy. No uppercase, no kickers.
+- **Shape:** A bento: every block is a `rounded-4xl` card, `gap-2` apart; inset images take `rounded-3xl` inside a `p-2` card. No shadows, gradients or hover radius changes.
+- **Classes:** No arbitrary Tailwind values, no `@apply`, no `mb-*`, one spacing value per property. A `<section>` only takes ground classes; layout and spacing go on the `Wrapper` or an inner `div`.
+- **Motion:** Lenis smooth scroll in `BaseLayout`, native view transitions for covers (`@view-transition` in `global.css`, `view-transition-name: cover-<id>`), rolling button labels. Nothing moves for reduced motion.
+- **Scope:** Prefer the smallest change that satisfies the task. Avoid drive-by refactors or new dependencies unless they appear in `package.json`.
+- **Lexington references:** Use the URLs in `README.md` (theme specs, documentation, changelog) instead of inventing support paths.

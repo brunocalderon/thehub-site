@@ -1,0 +1,136 @@
+---
+import BigLogo from "@/components/assets/BigLogo.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import ChevronRight from "@/components/fundations/icons/ChevronRight.astro";
+
+interface Props {
+  mode: "sign-in" | "sign-up";
+}
+
+const { mode } = Astro.props;
+const isSignIn = mode === "sign-in";
+const copy = isSignIn
+  ? {
+      title: "Welcome back",
+      description:
+        "Sign in to read the members stories, the archive and the letters you missed.",
+    }
+  : {
+      title: "Create your account",
+      description:
+        "A free account gets you the Friday letter. Add a membership any time to read everything.",
+    };
+const field =
+  "block w-full h-20 px-4 py-2 font-display text-3xl text-white border border-transparent appearance-none bg-muted-foreground rounded-3xl duration-300 placeholder-muted focus:bg-transparent focus:outline-none focus:ring-pink focus:ring-offset-2 focus:ring-2 focus:ring-offset-foreground";
+---
+
+<section>
+  <Wrapper variant="standard" class="py-4">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:h-screen-inset">
+      <div
+        class:list={[
+          "flex flex-col justify-between gap-24 p-8 rounded-4xl lg:p-16",
+          isSignIn ? "bg-accent text-white" : "bg-pink text-white",
+        ]}
+      >
+        <a href="/" aria-label="Tratto home">
+          <BigLogo class="w-full" />
+        </a>
+        <div>
+          <Text tag="h1" variant="display2XL" class="font-display text-balance">
+            {copy.title}
+          </Text>
+          <Text tag="p" variant="textLG" class="mt-6 font-display opacity-75 lg:w-3/4 text-pretty">
+            {copy.description}
+          </Text>
+          <Button isLink href="/" size="sm" variant="muted" class="mt-8 w-fit">
+            Back to Tratto
+          </Button>
+        </div>
+      </div>
+      <div class="flex flex-col justify-center p-8 rounded-4xl bg-foreground lg:p-16">
+        <form action="#" method="POST">
+          <div class="flex flex-col gap-y-2">
+            <div>
+              <label for="email" class="text-sm font-medium text-background">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                autocomplete="email"
+                required
+                class:list={[field, "mt-1"]}
+              />
+            </div>
+            <div>
+              <label for="password" class="text-sm font-medium text-background">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                autocomplete={isSignIn ? "current-password" : "new-password"}
+                required
+                class:list={[field, "mt-1"]}
+              />
+            </div>
+            {
+              !isSignIn && (
+                <div>
+                  <label for="confirm-password" class="text-sm font-medium text-background">
+                    Confirm password
+                  </label>
+                  <input
+                    type="password"
+                    name="confirm-password"
+                    id="confirm-password"
+                    autocomplete="new-password"
+                    required
+                    class:list={[field, "mt-1"]}
+                  />
+                </div>
+              )
+            }
+            <div class="flex items-center justify-between gap-4">
+              {
+                isSignIn && (
+                  <div class="flex items-center gap-3">
+                    <input
+                      id="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                      class="rounded size-4 bg-foreground border-muted-foreground text-pink focus:ring-pink"
+                    />
+                    <label for="remember-me" class="text-sm font-medium text-background">
+                      Remember me
+                    </label>
+                  </div>
+                )
+              }
+              <p class="text-xs text-white font-display">
+                {isSignIn ? "New to Tratto?" : "Already have an account?"}{" "}
+                <a
+                  href={isSignIn ? "/sign-up" : "/sign-in"}
+                  class="font-medium text-pink hover:text-background"
+                >
+                  {isSignIn ? "Create an account" : "Sign in"}
+                </a>
+              </p>
+            </div>
+          </div>
+          <Button
+            iconOnly
+            type="submit"
+            size="20"
+            variant="pink"
+            class="mt-8"
+            aria-label={isSignIn ? "Sign in" : "Create account"}
+          >
+            <ChevronRight slot="icon" size="xl" />
+          </Button>
+        </form>
+      </div>
+    </div>
+  </Wrapper>
+</section>

@@ -1,0 +1,54 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const principles = [
+  {
+    title: "We test what we write about",
+    description:
+      "Typefaces get set at real sizes, tools get used on real projects, and studios get visited in person.",
+    ground: "bg-accent text-white",
+  },
+  {
+    title: "We name what went wrong",
+    description:
+      "Every feature includes the parts of a project that did not work. That is usually where the lessons are.",
+    ground: "bg-orange text-foreground",
+  },
+  {
+    title: "We stay small",
+    description:
+      "Three editors and a handful of contributors. No sponsored articles, and every advertiser is labelled.",
+    ground: "bg-pink text-white",
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {
+        principles.map((item, index) => (
+          <div
+            class:list={[
+              "flex flex-col gap-32 p-8 rounded-4xl lg:p-12",
+              item.ground,
+            ]}
+          >
+            <Text tag="span" variant="displayLG" class="font-display opacity-75">
+              {String(index + 1).padStart(2, "0")}
+            </Text>
+            <div>
+              <Text tag="h3" variant="displaySM" class="font-display text-balance">
+                {item.title}
+              </Text>
+              <Text variant="textBase" class="mt-4 opacity-75 text-pretty">
+                {item.description}
+              </Text>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

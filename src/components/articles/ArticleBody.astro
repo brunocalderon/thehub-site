@@ -1,0 +1,100 @@
+---
+import { Image } from "astro:assets";
+import { getEntry, type CollectionEntry } from "astro:content";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import MembersGate from "@/components/articles/MembersGate.astro";
+import AdBanner from "@/components/ads/AdBanner.astro";
+import { formatDate, getArticles, getReadingTime } from "@/lib/articles";
+import { getTopic } from "@/lib/topics";
+
+interface Props {
+  id: string;
+  frontmatter: CollectionEntry<"articles">["data"];
+}
+
+const { id, frontmatter } = Astro.props;
+const author = await getEntry(frontmatter.author);
+const article = (await getArticles()).find((entry) => entry.id === id);
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-2">
+      <header class="flex flex-col justify-between gap-16 px-8 pt-16 pb-8 text-white bg-foreground rounded-4xl lg:p-16">
+        <div class="flex flex-wrap items-center gap-2">
+          {
+            frontmatter.topics.map((topicId) => (
+              <Button isLink href={`/topics/${topicId}`} size="xs" variant="muted">
+                {getTopic(topicId)?.name}
+              </Button>
+            ))
+          }
+          <Text tag="span" variant="textSM" class="font-display text-muted">
+            <time datetime={frontmatter.pubDate.toISOString()}>
+              {formatDate(frontmatter.pubDate)}
+            </time>
+          </Text>
+        </div>
+        <div>
+          <Text tag="h1" variant="displayXL" class="font-display text-balance">
+            {frontmatter.title}
+          </Text>
+          <Text variant="textLG" class="mt-6 font-display text-muted text-pretty">
+            {frontmatter.description}
+          </Text>
+          <div class="flex flex-wrap items-center justify-between gap-6 mt-12">
+            <a href={`/authors/${author.id}`} class="flex items-center gap-4 group">
+              <Image
+                src={author.data.portrait.url}
+                alt={author.data.portrait.alt}
+                width={200}
+                height={200}
+                class="object-cover size-14 rounded-2xl"
+              />
+              <span class="flex flex-col font-display">
+                <Text tag="span" variant="textBase" class="duration-300 group-hover:text-orange">
+                  {author.data.name}
+                </Text>
+                <Text tag="span" variant="textSM" class="text-muted">
+                  {author.data.role}
+                </Text>
+              </span>
+            </a>
+            {
+              article && (
+                <Text tag="span" variant="textSM" class="font-display text-muted">
+                  {getReadingTime(article)}
+                </Text>
+              )
+            }
+          </div>
+        </div>
+      </header>
+      <Image
+        style={`view-transition-name: cover-${id}`}
+        src={frontmatter.cover.url}
+        alt={frontmatter.cover.alt}
+        width={1200}
+        height={1200}
+        loading="eager"
+        class="object-cover w-full aspect-square rounded-4xl"
+      />
+    </div>
+    {
+      frontmatter.isMembersOnly ? (
+        <MembersGate />
+      ) : (
+        <article class="p-8 bg-white rounded-4xl lg:py-24">
+          <div class="max-w-2xl mx-auto">
+            <Wrapper variant="prose">
+              <slot />
+            </Wrapper>
+          </div>
+        </article>
+      )
+    }
+    <AdBanner />
+  </Wrapper>
+</section>

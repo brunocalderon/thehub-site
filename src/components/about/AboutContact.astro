@@ -1,0 +1,27 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-2 lg:p-16">
+      <div>
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground">
+          Say hello
+        </Text>
+        <Text variant="textLG" class="mt-4 text-muted-foreground text-pretty">
+          Feedback, corrections and tips all go to the same inbox, and one of us reads every message.
+        </Text>
+      </div>
+      <Text
+        tag="a"
+        href="#_"
+        variant="displayMD"
+        class="self-end font-display text-foreground hover:text-accent"
+      >
+        hello@tratto.test
+      </Text>
+    </div>
+  </Wrapper>
+</section>

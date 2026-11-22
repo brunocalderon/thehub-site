@@ -1,0 +1,23 @@
+---
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import AuthorCard from "@/components/authors/AuthorCard.astro";
+import { getEditors } from "@/lib/authors";
+
+const authors = await getEditors();
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    <div class="px-8 pt-16 pb-8 text-white bg-foreground rounded-4xl lg:p-16">
+      <Text tag="h1" variant="display2XL" class="font-display">Editors</Text>
+      <Text variant="textLG" class="mt-6 font-display text-muted lg:w-1/2 text-pretty">
+        Three editors, one beat each. They write most of what you read here and edit everything
+        else.
+      </Text>
+    </div>
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+      {authors.map((props) => <AuthorCard {...props} />)}
+    </div>
+  </Wrapper>
+</section>

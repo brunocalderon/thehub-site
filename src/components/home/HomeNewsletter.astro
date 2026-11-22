@@ -1,0 +1,22 @@
+---
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import NewsletterForm from "@/components/newsletter/NewsletterForm.astro";
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-2 lg:p-12">
+      <div>
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground text-balance">
+          One letter, every Friday
+        </Text>
+        <Text variant="textLG" class="mt-6 text-muted-foreground text-pretty">
+          The week's stories, one studio visit and the typeface we kept coming back to. Free, and
+          easy to leave.
+        </Text>
+      </div>
+      <NewsletterForm id="home-email" class="self-end" />
+    </div>
+  </Wrapper>
+</section>

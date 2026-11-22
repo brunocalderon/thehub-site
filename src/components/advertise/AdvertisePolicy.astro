@@ -1,0 +1,65 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const lists = [
+  {
+    title: "We run",
+    marker: "marker:text-accent",
+    items: [
+      "Foundries, tools and software we have used",
+      "Schools, courses and design events",
+      "Studios hiring designers",
+      "Books and objects made by designers",
+    ],
+  },
+  {
+    title: "We turn down",
+    marker: "marker:text-pink",
+    items: [
+      "Sponsored articles or reviews",
+      "Anything we would not use ourselves",
+      "Tracking pixels and third party scripts",
+      "More than one sponsor per letter",
+    ],
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-12 lg:p-16">
+      <div class="lg:col-span-4">
+        <Text tag="h2" variant="displayXL" class="font-display text-foreground text-balance">
+          What we run
+        </Text>
+        <Text variant="textLG" class="mt-4 text-muted-foreground text-pretty">
+          Every sponsor is labelled, and we read every brief before we say yes.
+        </Text>
+      </div>
+      <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:col-span-8">
+        {
+          lists.map((list) => (
+            <div>
+              <Text tag="h3" variant="displaySM" class="font-display text-foreground">
+                {list.title}
+              </Text>
+              <ul
+                role="list"
+                class:list={["flex flex-col gap-3 pl-5 mt-6 list-disc-dot", list.marker]}
+              >
+                {list.items.map((item) => (
+                  <li class="pl-2">
+                    <Text tag="span" variant="textBase" class="text-muted-foreground">
+                      {item}
+                    </Text>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Wrapper>
+</section>

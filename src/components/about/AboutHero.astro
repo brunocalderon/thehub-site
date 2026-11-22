@@ -1,0 +1,43 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const numbers = [
+  { value: "2021", label: "First issue, sent as a Friday email" },
+  { value: "3", label: "Editors in Bergen, Milan and Valencia" },
+  { value: "4", label: "Topics, from type to studios" },
+  { value: "0", label: "Sponsored articles, ever" },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div
+      class="flex flex-col justify-between gap-24 px-8 pt-16 pb-8 text-white bg-foreground rounded-4xl lg:p-16 lg:h-screen-inset"
+    >
+      <div>
+        <Text tag="h1" variant="display2XL" class="font-display lg:w-5/6 text-balance">
+          We write about work we have tested
+        </Text>
+        <Text variant="textLG" class="mt-6 font-display text-muted lg:w-1/2 text-pretty">
+          Every typeface we review is set, every tool is used and every studio is visited before we
+          write a word.
+        </Text>
+      </div>
+      <dl class="grid grid-cols-2 gap-8 pt-8 border-t border-white/20 lg:grid-cols-4">
+        {
+          numbers.map((item) => (
+            <div class="flex flex-col-reverse gap-2">
+              <Text tag="dd" variant="textBase" class="text-muted text-pretty">
+                {item.label}
+              </Text>
+              <Text tag="dt" variant="displayLG" class="font-display text-orange">
+                {item.value}
+              </Text>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Wrapper>
+</section>

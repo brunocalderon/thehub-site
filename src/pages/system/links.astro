@@ -1,0 +1,15 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SystemHeader from "@/components/system/SystemHeader.astro";
+import SystemTextLinks from "@/components/system/SystemTextLinks.astro";
+import SystemButtons from "@/components/system/SystemButtons.astro";
+---
+
+<BaseLayout>
+  <SystemHeader
+    title="Links"
+    description="Every text link style used across Tratto, then the Button component rendered as a link with isLink and an href."
+  />
+  <SystemTextLinks />
+  <SystemButtons isLink />
+</BaseLayout>

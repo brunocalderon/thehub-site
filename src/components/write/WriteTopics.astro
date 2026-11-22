@@ -1,0 +1,31 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { topics } from "@/lib/topics";
+
+const wanted: Record<string, string> = {
+  type: "A typeface you set on a real project, at the sizes people read it.",
+  interfaces: "A pattern you shipped, and what the people using it did next.",
+  identity: "A rebrand from the inside, including the rounds that did not make it.",
+  studios: "How your studio prices, hires or says no. Numbers welcome.",
+};
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
+      {
+        topics.map((topic) => (
+          <div class:list={["flex flex-col gap-32 p-8 rounded-4xl", topic.ground]}>
+            <Text tag="h2" variant="displayMD" class="font-display">
+              {topic.name}
+            </Text>
+            <Text variant="textLG" class="font-display text-balance">
+              {wanted[topic.id]}
+            </Text>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>

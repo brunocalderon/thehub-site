@@ -1,0 +1,25 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+---
+
+<div class="p-8 text-white bg-pink rounded-4xl lg:py-24">
+  <div class="max-w-2xl mx-auto">
+    <Text tag="h2" variant="displayMD" class="font-display text-balance">
+      This story is for members
+    </Text>
+    <Text tag="p" variant="textBase" class="mt-4 opacity-75 text-pretty">
+      Members read every feature, every studio visit and the full archive, and keep Tratto
+      independent.
+    </Text>
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-4 mt-12">
+      <Button isLink size="base" variant="default" href="/membership">
+        Become a member
+      </Button>
+      <Text tag="p" variant="textSM" class="font-display">
+        Already a member?{" "}
+        <a href="/sign-in" class="font-medium duration-300 hover:opacity-75">Sign in</a>
+      </Text>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Text from "@/components/fundations/elements/Text.astro";
+import Button from "@/components/fundations/elements/Button.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+interface Props {
+  id: string;
+  frontmatter: CollectionEntry<"legal">["data"];
+}
+
+const { id, frontmatter } = Astro.props;
+const order = ["terms", "privacy", "cookies", "faq"];
+const pages = (await getCollection("legal")).sort(
+  (a, b) => order.indexOf(a.id) - order.indexOf(b.id),
+);
+---
+
+<section>
+  <Wrapper variant="standard" class="flex flex-col gap-2 pt-2">
+    <div class="px-8 pt-16 pb-8 text-white bg-foreground rounded-4xl lg:p-16">
+      <Text tag="h1" variant="display2XL" class="font-display">
+        {frontmatter.page}
+      </Text>
+      <Text tag="p" variant="textLG" class="mt-6 font-display text-muted">
+        Updated
+        <time datetime={frontmatter.pubDate.toISOString()}>
+          {
+            frontmatter.pubDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </time>
+      </Text>
+    </div>
+    <div class="grid grid-cols-1 gap-12 p-8 bg-white rounded-4xl lg:grid-cols-12 lg:p-16">
+      <nav aria-label="Legal" class="lg:col-span-4">
+        <div class="flex flex-wrap gap-1 lg:flex-col lg:items-start lg:sticky lg:top-24">
+          {
+            pages.map((page) => (
+              <Button
+                isLink
+                href={`/legal/${page.id}`}
+                size="sm"
+                variant={page.id === id ? "default" : "none"}
+                class={page.id === id ? undefined : "bg-muted text-foreground hover:text-accent"}
+                aria-current={page.id === id ? "page" : undefined}
+              >
+                {page.data.page}
+              </Button>
+            ))
+          }
+        </div>
+      </nav>
+      <article class="max-w-2xl lg:col-span-8">
+        <Wrapper variant="prose"><slot /></Wrapper>
+      </article>
+    </div>
+  </Wrapper>
+</section>

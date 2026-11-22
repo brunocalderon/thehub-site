@@ -1,0 +1,112 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+
+const groups = [
+  {
+    title: "Static",
+    categories: [
+      {
+        name: "Pages",
+        links: [
+          { href: "/", text: "Home" },
+          { href: "/about", text: "About" },
+          { href: "/membership", text: "Membership" },
+          { href: "/newsletter", text: "Newsletter" },
+          { href: "/advertise", text: "Advertise" },
+          { href: "/write-for-us", text: "Write for us" },
+          { href: "/404", text: "Error 404" },
+        ],
+      },
+      {
+        name: "Forms",
+        links: [
+          { href: "/contact", text: "Contact" },
+          { href: "/sign-in", text: "Sign in" },
+          { href: "/sign-up", text: "Sign up" },
+        ],
+      },
+      {
+        name: "System",
+        links: [
+          { href: "/system/colors", text: "Colors" },
+          { href: "/system/buttons", text: "Buttons" },
+          { href: "/system/links", text: "Links" },
+          { href: "/system/typography", text: "Typography" },
+        ],
+      },
+      {
+        name: "Resources",
+        links: [
+          { href: "https://lexingtonthemes.com/legal/license", text: "License" },
+          { href: "https://lexingtonthemes.com/documentation", text: "Documentation" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Content collections",
+    categories: [
+      {
+        name: "Articles",
+        links: [
+          { href: "/articles", text: "Index" },
+          { href: "/articles/small-type-is-getting-wider", text: "Article" },
+          { href: "/articles/members", text: "Members only" },
+          { href: "/topics", text: "Topics" },
+          { href: "/topics/type", text: "Topic" },
+          { href: "/rss.xml", text: "RSS" },
+        ],
+      },
+      {
+        name: "Authors",
+        links: [
+          { href: "/authors", text: "Index" },
+          { href: "/authors/ingrid-solberg", text: "Profile" },
+        ],
+      },
+      {
+        name: "Legal",
+        links: [{ href: "/legal/terms", text: "Terms" }],
+      },
+    ],
+  },
+];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-2">
+    <div class="grid grid-cols-1 gap-2 lg:grid-cols-2">
+      {
+        groups.map((group) => (
+          <div class="flex flex-col gap-8 p-8 bg-white rounded-4xl lg:p-12">
+            <Text tag="h2" variant="displayMD" class="font-display text-foreground">
+              {group.title}
+            </Text>
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {group.categories.map((category) => (
+                <div class="p-6 bg-muted rounded-3xl">
+                  <Text tag="h3" variant="textBase" class="font-display text-foreground">
+                    {category.name}
+                  </Text>
+                  <ul role="list" class="flex flex-col gap-1 mt-4">
+                    {category.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          class="text-sm text-muted-foreground hover:text-accent"
+                        >
+                          {link.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Wrapper>
+</section>
